@@ -1,0 +1,22 @@
+import logo from '../assets/anthonyLogo.png'
+import profile from '../assets/profile.jpg'
+import loginImage from '../assets/blob1.png'
+import loginBg from '../assets/1716543894647.png'
+import sadasd from '../assets/blob.png'
+import skillBg from '../assets/skillBg.svg'
+import expBg from '../assets/expBg.png'
+import reactImg from '../assets/fourr.jpg'
+import schoolLogo from '../assets/logoSchool.jpg'
+import phoneScreen from '../assets/Screenshot_4.png'
+import macScreen from '../assets/Screenshot_3.png'
+import bgModel from '../assets/compbg1.png'
+import IphoneFrame from '../assets/frame.png'
+import ImacFrame from '../assets/imacFrame.png'
+import ChatOne from '../assets/images/user/user-01.png'
+import ChatTwo from '../assets/images/user/user-02.png'
+import ChatThree from '../assets/images/user/user-03.png'
+import ChatFour from '../assets/images/user/user-04.png'
+import ChatFive from '../assets/images/user/user-05.png'
+
+
+export { ChatOne, ChatTwo, ChatThree, ChatFour, ChatFive, logo, profile, loginImage, loginBg, sadasd, skillBg, expBg, reactImg, schoolLogo, phoneScreen, macScreen, bgModel, IphoneFrame, ImacFrame}

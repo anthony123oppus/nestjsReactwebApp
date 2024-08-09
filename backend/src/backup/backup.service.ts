@@ -34,15 +34,15 @@ export class BackupService {
     });
   }
 
-  @Cron(CronExpression.EVERY_10_SECONDS) //  backup every second
-  handleDailyBackup() {
-    const currentDate = new Date();
-    const dateString = currentDate.toISOString().slice(0, 10); // Format: YYYY-MM-DD
-    const timeString = currentDate.toTimeString().slice(0, 8).replace(/:/g, '-'); // Format: HH-MM-SS
+  // @Cron(CronExpression.EVERY_10_SECONDS) //  backup every second
+  // handleDailyBackup() {
+  //   const currentDate = new Date();
+  //   const dateString = currentDate.toISOString().slice(0, 10); // Format: YYYY-MM-DD
+  //   const timeString = currentDate.toTimeString().slice(0, 8).replace(/:/g, '-'); // Format: HH-MM-SS
 
-    const filename = `backup-daily-${dateString}-${timeString}.sql`;
-    this.backupDatabase(filename);
-  }
+  //   const filename = `backup-daily-${dateString}-${timeString}.sql`;
+  //   this.backupDatabase(filename);
+  // }
 
 //   @Cron('0 0 * * *') // Daily at midnight
 //   handleDailyBackup() {

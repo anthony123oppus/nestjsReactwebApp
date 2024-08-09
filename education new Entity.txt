@@ -1,0 +1,77 @@
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Degree } from 'src/typeorm/entities/Degree';
+import { Repository } from 'typeorm';
+import { EducationDTO } from './dto/education.dto';
+import { Education } from 'src/typeorm/entities/Education';
+
+@Injectable()
+export class EducationService {
+
+    constructor(
+        @InjectRepository(Degree) private degreeRepository : Repository<Degree>,
+        @InjectRepository(Education) private educationRepository : Repository<Education>
+    ) {}
+
+    async getEducation () {
+        const allEducation = await this.educationRepository.find({relations : ['degree']})
+
+        if(allEducation.length === 0) {
+           return {message : 'Education Table has no data'}
+        }
+
+        return allEducation
+    }
+
+
+    async createEducation (educationData : EducationDTO) : Promise<Education> {
+
+        // Fetch the degree by ID from the database
+        const degree = await this.degreeRepository.findOne({where : {id : educationData.degree}});
+
+        if (!degree) {
+            throw new HttpException(`Degree with ID ${educationData.degree} not found`, HttpStatus.NOT_FOUND);
+        }
+
+        // gi kuha nako kung naa exist naba ang data
+        const existEduc = await this.educationRepository.findOne({relations : ['degree'], where: {schoolName : educationData.schoolName, degree : {id : educationData.degree}}})
+
+        if(existEduc) {
+            throw new HttpException(`Education Attainment with an SchoolName ${educationData.schoolName} and degree of ${degree.degree} already exist`, HttpStatus.BAD_REQUEST)
+        }
+
+        // Create a new Education entity and associate it with the fetched Degree
+        // const newEducation = new Education();
+        // newEducation.schoolName = educationData.schoolName;
+        // newEducation.course = educationData.course;
+        // newEducation.monthGraduated = educationData.monthGraduated;
+        // newEducation.yearGraduated = educationData.yearGraduated;
+        // newEducation.schoolAddress = educationData.schoolAddress;
+        // newEducation.schoolImage = educationData.schoolImage;
+        // newEducation.degree = degree; // Associate the fetched Degree entity
+
+        // Create a new Education entity and associate it with the fetched Degree
+        const newEducation = this.educationRepository.create({
+            ...educationData,
+            degree
+        });
+
+        // Save the new Education entity
+        const savedEducation = await this.educationRepository.save(newEducation);
+
+        return savedEducation;
+    }
+
+    async getDegree () {
+        const degrees = await this.degreeRepository.find()
+
+        if(degrees.length === 0){
+            return {message : 'Degree Table has no data'}
+        }
+
+        return degrees
+    }
+
+
+
+}

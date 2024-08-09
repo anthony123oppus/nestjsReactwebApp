@@ -1,0 +1,19 @@
+tinapulan na set Data
+
+setData((prevData : educationTypes) => {
+        const updateData : educationTypes = { ...prevData };
+
+        Object.keys(item).forEach((itemname) => {
+          if (itemname === "schoolImage") {
+            updateData.schoolImage = file
+          } else {
+            (updateData as any)[itemname] = (item as any)[itemname];
+          }
+        });
+
+        return updateData
+
+      });
+
+
+gi loop and object

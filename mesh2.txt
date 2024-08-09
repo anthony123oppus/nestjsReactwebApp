@@ -1,0 +1,77 @@
+import * as THREE from "three";
+import { useGLTF, useTexture } from "@react-three/drei";
+import { macScreen } from "../../util/Image";
+
+export default function Macbook(props) {
+  const { nodes, materials } = useGLTF("/models/mackbook_air_15_m2.glb");
+
+  const texture = useTexture(macScreen);
+  texture.rotation = Math.PI / 2; // Rotate the texture by 90 degrees
+  texture.wrapS = THREE.RepeatWrapping; // or THREE.ClampToEdgeWrapping
+  texture.wrapT = THREE.RepeatWrapping; // or THREE.ClampToEdgeWrapping
+  texture.repeat.set(1, 1);
+
+  return (
+    <group
+      {...props}
+      dispose={null}
+      scale={[0.14, 0.14, 0.14]}
+      position={[0, -0.12, 0]}
+    >
+      <group rotation={[-Math.PI / 2, 0, 0]}>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={(nodes.Object_6 as THREE.Mesh).geometry}
+          material={materials["Aluminum_-_Anodized_Glossy_Grey"]}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={(nodes.Object_8 as THREE.Mesh).geometry}
+          material={materials["Aluminum_-_Anodized_Glossy_Grey_keyboard.jpg"]}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={(nodes.Object_10 as THREE.Mesh).geometry}
+          //   material={materials['Glass_-_Heavy_Color']}
+        >
+          <meshStandardMaterial map={texture} />
+        </mesh>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={(nodes.Object_12 as THREE.Mesh).geometry}
+          material={materials["Plastic_-_Translucent_Matte_Gray"]}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={(nodes.Object_14 as THREE.Mesh).geometry}
+          material={materials.Acrylic_Clear}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={(nodes.Object_16 as THREE.Mesh).geometry}
+          material={materials["Bronze_-_Polished"]}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={(nodes.Object_18 as THREE.Mesh).geometry}
+          material={materials["Rubber_-_Soft"]}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={(nodes.Object_20 as THREE.Mesh).geometry}
+          material={materials["Steel_-_Satin"]}
+        />
+      </group>
+    </group>
+  );
+}
+
+useGLTF.preload("/models/mackbook_air_15_m2.glb");

@@ -18,6 +18,7 @@ import { EducationModule } from './education/education.module';
 import { ProjectModule } from './project/project.module';
 import { BackupService } from './backup/backup.service';
 import { ScheduleModule } from '@nestjs/schedule';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @Module({
   imports: [
@@ -36,7 +37,8 @@ import { ScheduleModule } from '@nestjs/schedule';
     WorkExperienceModule,
     EducationModule,
     ProjectModule,
-    ScheduleModule.forRoot()
+    ScheduleModule.forRoot(),
+    DashboardModule
   ],
   controllers: [AppController],
   providers: [AppService, BackupService],

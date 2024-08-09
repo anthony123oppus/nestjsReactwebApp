@@ -80,6 +80,25 @@ export class SkillsService {
         return {message : `${deleteUser.name} Deleted Successfully`}
     }
 
+    async countData(level?: string){
+        if(level){
+            return await this.skillsRepository.countBy({level})
+        }
+        return await this.skillsRepository.count()
+    }
+
+    async dataPieGraph(){
+        const level = ['Beginner', 'Average', 'Advanced', 'Expert']
+
+        const levelData = await Promise.all(
+            level.map(async (item) => ({
+                x: item,
+                y: await this.countData(item),
+            }))
+        );
+        return levelData
+    }
+
     private deleteImage(imagePath: string) {
         const fullImagePath = path.resolve(__dirname, '../../../uploads', imagePath);
         fs.unlink(fullImagePath, (err) => {

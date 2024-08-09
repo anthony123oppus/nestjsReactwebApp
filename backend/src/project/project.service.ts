@@ -73,6 +73,10 @@ export class ProjectService {
         return {message : `Project with an id ${id} deleted Successfully`}
     }
 
+    async countAllproject() {
+        return await this.projectRepository.count()
+    }
+
     private deleteImage(imagePath: string) {
         const fullImagePath = path.resolve(__dirname, '../../../uploads', imagePath);
         fs.unlink(fullImagePath, (err) => {
